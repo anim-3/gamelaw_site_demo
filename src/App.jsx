@@ -1,6 +1,9 @@
 /* Full App.jsx - Tailwind-ready React component for Gamelaw site */
 import React, { useState } from "react";
 
+const BASE = import.meta.env.BASE_URL;
+const img = (path) => BASE + path.slice(1);
+
 const casesData = [
   {
     "id": 1,
@@ -143,7 +146,7 @@ function Header({ onOpenResources }) {
           <button onClick={onOpenResources} className="hover:underline">Ресурсы</button>
           <a href="#cases" className="hover:underline">Кейсы</a>
           <a href="#posters" className="hover:underline">Постеры</a>
-          <a href="/docs/Workbook_Gamification_KZ.pdf" className="hover:underline" target="_blank" rel="noreferrer">Скачать тетрадь</a>
+          <a href={`${BASE}docs/Workbook_Gamification_KZ.pdf`} className="hover:underline" target="_blank" rel="noreferrer">Скачать тетрадь</a>
         </nav>
       </div>
     </header>
@@ -153,7 +156,7 @@ function Header({ onOpenResources }) {
 function CaseCard({ c, onOpen }) {
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-      <img src={c.poster} alt={c.title} className="w-full h-44 object-cover" />
+      <img src={img(c.poster)} alt={c.title} className="w-full h-44 object-cover" />
       <div className="p-4">
         <h3 className="font-semibold text-lg">{c.title}</h3>
         <p className="text-sm text-gray-600">{c.short}</p>
@@ -186,7 +189,7 @@ function PostersGallery({ data }) {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {data.map((c) => (
           <div key={c.id} className="bg-white rounded-xl overflow-hidden shadow">
-            <img src={c.poster} alt={c.title} className="w-full h-48 object-cover" />
+            <img src={img(c.poster)} alt={c.title} className="w-full h-48 object-cover" />
             <div className="p-3">
               <h4 className="text-md font-medium">{c.title}</h4>
             </div>
@@ -206,13 +209,13 @@ function ComicViewer({ caseItem, onClose }) {
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold">{caseItem.title} — Комикс</h3>
           <div className="flex gap-2">
-            <a href={caseItem.comics[index]} download className="px-3 py-1 border rounded">Скачать</a>
+            <a href={img(caseItem.comics[index])} download className="px-3 py-1 border rounded">Скачать</a>
             <button onClick={onClose} className="px-3 py-1 bg-red-500 text-white rounded">Закрыть</button>
           </div>
         </div>
         <div className="flex items-center gap-4">
           <button onClick={() => setIndex((i) => Math.max(0, i - 1))} className="px-3 py-2 bg-gray-100 rounded">◀</button>
-          <img src={caseItem.comics[index]} alt={`comic-${index}`} className="w-full h-96 object-contain rounded" />
+          <img src={img(caseItem.comics[index])} alt={`comic-${index}`} className="w-full h-96 object-contain rounded" />
           <button onClick={() => setIndex((i) => Math.min(caseItem.comics.length - 1, i + 1))} className="px-3 py-2 bg-gray-100 rounded">▶</button>
         </div>
         <div className="mt-3 text-center text-sm text-gray-600">Кадр {index + 1} из {caseItem.comics.length}</div>
@@ -233,9 +236,9 @@ function TeacherResources({ open, onClose }) {
         <div className="space-y-4 text-sm">
           <p><b>Содержимое:</b> методичка, рабочая тетрадь, презентация, постеры и комиксы.</p>
           <ul className="list-disc pl-6">
-            <li><a href="/docs/Workbook_Gamification_KZ.pdf" target="_blank" rel="noreferrer" className="text-indigo-600">Рабочая тетрадь (PDF)</a></li>
-            <li><a href="/docs/posters_collection.pdf" target="_blank" rel="noreferrer" className="text-indigo-600">Коллекция постеров (PDF)</a></li>
-            <li><a href="/docs/presentation_qr_codes.pptx" target="_blank" rel="noreferrer" className="text-indigo-600">Презентация (PPTX)</a></li>
+            <li><a href={`${BASE}docs/Workbook_Gamification_KZ.pdf`} target="_blank" rel="noreferrer" className="text-indigo-600">Рабочая тетрадь (PDF)</a></li>
+            <li><a href={`${BASE}docs/posters_collection.pdf`} target="_blank" rel="noreferrer" className="text-indigo-600">Коллекция постеров (PDF)</a></li>
+            <li><a href={`${BASE}docs/presentation_qr_codes.pptx`} target="_blank" rel="noreferrer" className="text-indigo-600">Презентация (PPTX)</a></li>
           </ul>
           <h4 className="font-semibold">Шаблоны уроков</h4>
           <p>Включены в рабочую тетрадь: универсальный шаблон урока, шаблон создания комикса, карточки для групповой работы.</p>
@@ -266,8 +269,8 @@ export default function App() {
           <h2 className="text-3xl font-bold">Учебный проект: геймификация прав</h2>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">Интерактивные кейсы, комиксы, постеры и методические материалы для уроков по правовой грамотности.</p>
           <div className="mt-6 flex justify-center gap-3">
-            <a href="/docs/Workbook_Gamification_KZ.pdf" className="px-4 py-2 bg-indigo-600 text-white rounded">Скачать тетрадь</a>
-            <a href="/docs/posters_collection.pdf" className="px-4 py-2 border rounded text-indigo-600">Постеры (PDF)</a>
+            <a href={`${BASE}docs/Workbook_Gamification_KZ.pdf`} className="px-4 py-2 bg-indigo-600 text-white rounded">Скачать тетрадь</a>
+            <a href={`${BASE}docs/posters_collection.pdf`} className="px-4 py-2 border rounded text-indigo-600">Постеры (PDF)</a>
           </div>
         </section>
 
@@ -280,8 +283,8 @@ export default function App() {
           <div className="bg-white rounded-xl p-6 shadow">
             <p className="text-gray-700">Полный методический комплект, шаблоны уроков и карточки для групповой работы — доступны для скачивания.</p>
             <div className="mt-4 flex gap-3">
-              <a href="/docs/Workbook_Gamification_KZ.pdf" className="px-3 py-2 bg-indigo-600 text-white rounded">Рабочая тетрадь</a>
-              <a href="/docs/presentation_qr_codes.pptx" className="px-3 py-2 border rounded text-indigo-600">Презентация</a>
+              <a href={`${BASE}docs/Workbook_Gamification_KZ.pdf`} className="px-3 py-2 bg-indigo-600 text-white rounded">Рабочая тетрадь</a>
+              <a href={`${BASE}docs/presentation_qr_codes.pptx`} className="px-3 py-2 border rounded text-indigo-600">Презентация</a>
             </div>
           </div>
         </section>
